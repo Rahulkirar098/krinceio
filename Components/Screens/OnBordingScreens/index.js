@@ -1,13 +1,20 @@
-import React from 'react'
+import React,{useState} from 'react'
 import { Image } from 'react-native';
 import Onboarding from 'react-native-onboarding-swiper';
-
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export function OnBordingScreens({ navigation }) {
+
     return (
         <Onboarding
-            onSkip={() => navigation.replace('login')}
-            onDone={() => navigation.navigate('login')}
+            onSkip={() => {
+                navigation.replace('login')
+                AsyncStorage.setItem('launched','true')
+            }}
+            onDone={() => {
+                navigation.navigate('login')
+                AsyncStorage.setItem('launched','true')
+            }}
             pages={[
                 {
                     backgroundColor: '#fff',

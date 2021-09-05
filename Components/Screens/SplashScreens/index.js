@@ -1,14 +1,32 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import {
     View,
     StyleSheet,
     Text,
 } from 'react-native'
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 
-export function SplashScreens({navigation}) {
+export function SplashScreens({ navigation }) {
 
-    setTimeout(() => { navigation.replace('onbording') }, 3000)
+    const onbording = 'onbording'
+
+    const login = 'login'
+
+    const [isTrue, setIsTrue] = useState()
+
+
+    useEffect(() => {
+        AsyncStorage.getItem('launched').then(value => {
+            if (value === null) {
+                setIsTrue(true)
+            } else {
+                setIsTrue(false)
+            }
+        })
+    }, [])
+
+    setTimeout(() => { navigation.replace(isTrue === true ? onbording : login) }, 3000)
 
     return (
 
